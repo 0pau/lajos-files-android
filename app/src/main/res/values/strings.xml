@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Files</string>
+    <string name="places">Places</string>
+    <string name="storages">Storages on this device</string>
+    <string name="permission_dialog_title">Please allow \'All files access\' for this app</string>
+    <string name="permission_dialog_text">In order to use this app, you must permit access to your phone\'s storage in the Settings app.</string>
+    <string name="cancel">Cancel</string>
+    <string name="open_settings">Open Settings</string>
+    <string name="permission_error_title">Permissions not granted</string>
+    <string name="permission_error_text">The application is unusable without this permission. Click the button to quit.</string>
+    <string name="close_app">Close app</string>
+    <string name="free_space">%1$s GB free</string>
+    <string name="recent">Recent files</string>
+    <string name="favorites">Favorites</string>
+</resources>

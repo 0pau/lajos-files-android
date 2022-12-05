@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Fájlkezelő</string>
+    <string name="places">Helyek</string>
+    <string name="storages">Tárhelyek a telefonon</string>
+    <string name="permission_dialog_title">Kérjük, engedélyezze a hozzáférést a telefon tárhelyéhez</string>
+    <string name="permission_dialog_text">Az alkalmazás használatához engedélyezze a telefon tárhelyéhez való hozzáférést a beállításokban.</string>
+    <string name="cancel">Mégse</string>
+    <string name="open_settings">Beállítások megnyitása</string>
+    <string name="permission_error_title">Az engedélykérés el lett utasítva</string>
+    <string name="permission_error_text">Az alkalmazás használhatatlan eme engedély hiányában. Koppintson a gombra a bezáráshoz.</string>
+    <string name="close_app">Kilépés</string>
+    <string name="free_space">%1$s GB szabad</string>
+    <string name="recent">Legutóbbi fájlok</string>
+    <string name="favorites">Kedvencek</string>
+</resources>
