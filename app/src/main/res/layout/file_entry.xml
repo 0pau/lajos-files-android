@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:divider="@drawable/divider"
+    android:divider="@drawable/list_view_divider"
     android:gravity="center_vertical"
     android:padding="10dp"
     android:showDividers="middle">
@@ -13,7 +13,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:padding="5dp"
+        android:background="@drawable/file_entry_bg"
+        android:padding="15dp"
+        android:tint="?attr/colorOnPrimary"
         app:srcCompat="@drawable/ic_round_folder_24" />
 
     <LinearLayout

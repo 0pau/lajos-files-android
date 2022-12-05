@@ -12,4 +12,5 @@
     <string name="free_space">%1$s GB free</string>
     <string name="recent">Recent files</string>
     <string name="favorites">Favorites</string>
+    <string name="item_count">%1$d items</string>
 </resources>
