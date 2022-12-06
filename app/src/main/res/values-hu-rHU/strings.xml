@@ -15,4 +15,14 @@
     <string name="favorites">Kedvencek</string>
     <string name="item_count">%1$d elem</string>
     <string name="file_desc_string">%1$s • %2$s</string>
+    <string name="sort_by">Rendezés</string>
+    <string name="sort_by_name">Név szerint</string>
+    <string name="sort_by_size">Méret szerint</string>
+    <string name="sort_by_date">Dátum szerint</string>
+    <string name="search">Keresés</string>
+    <string name="settings">Beállítások</string>
+    <string name="show_hidden">Rejtett fájlok megjelenítése</string>
+    <string name="show_hidden_description">Azon fájlok mutatása, melyek neve ponttal (.) kezdődik</string>
+    <string name="folders_before_files">Mappák rendezése a fájlok előtt</string>
+    <string name="folders_before_files_desc">A listában a mappák a fájlok előtt jelennek meg</string>
 </resources>

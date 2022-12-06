@@ -8,15 +8,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Looper;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.elevation.SurfaceColors;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,22 +43,50 @@ public class FileBrowserActivity extends AppCompatActivity {
 
     ListView list;
     TextView itemcount;
+    Button sortButton;
+    Toolbar toolbar;
+    String path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_browser);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar3);
+        setSupportActionBar(toolbar);
+        toolbar.setBackgroundColor(SurfaceColors.SURFACE_2.getColor(this));
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+
+
+        int color = SurfaceColors.SURFACE_2.getColor(this);
+        this.getWindow().setStatusBarColor(color);
+        getWindow().setNavigationBarColor(color);
 
 
         list = findViewById(R.id.file_browser_list);
+
+        list.setOnItemClickListener(item_selected);
+
         itemcount = findViewById(R.id.item_count);
+        sortButton = findViewById(R.id.sort_options_button);
+        sortButton.setOnClickListener(view -> {
+            openSortMenu();
+        });
 
-        File f = new File(getIntent().getExtras().getString("path"));
+        path = getIntent().getExtras().getString("path");
+
+        loadDir();
+    }
+
+    public void navigate() {
+        loadDir();
+    }
+
+    public void loadDir() {
+        File f = new File(path);
+        getSupportActionBar().setTitle(Tools.getVolumeNameForPath(this, f.getPath()));
         File[] entries = f.listFiles();
-
         ArrayList<FileEntry> fel = new ArrayList<FileEntry>();
         ArrayList<FileEntry> dirs = new ArrayList<FileEntry>();
         ArrayList<FileEntry> files = new ArrayList<FileEntry>();
@@ -86,9 +121,20 @@ public class FileBrowserActivity extends AppCompatActivity {
 
         FileAdapter adapter = new FileAdapter(this, fel);
         list.setAdapter(adapter);
-
-
     }
+
+    public AdapterView.OnItemClickListener item_selected = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            FileEntry fe = (FileEntry) list.getItemAtPosition(i);
+
+            if (fe.type == FileType.DIRECTORY) {
+                path = fe.path;
+                navigate();
+            }
+
+        }
+    };
 
     public class FileAdapter extends ArrayAdapter<FileEntry> {
 
@@ -169,6 +215,19 @@ public class FileBrowserActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+
+        if (Tools.isPathRootOfVolume(this, path)) {
+            super.onBackPressed();
+        } else {
+            File f = new File(path);
+            path = f.getParent();
+            loadDir();
+        }
+
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -178,5 +237,10 @@ public class FileBrowserActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void openSortMenu() {
+        PopupMenu pop = new PopupMenu(this, sortButton);
+        pop.getMenuInflater().inflate(R.menu.sort_options, pop.getMenu());
 
+        pop.show();
+    }
 }

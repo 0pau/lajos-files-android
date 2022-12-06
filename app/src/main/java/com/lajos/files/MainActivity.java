@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -28,9 +29,12 @@ import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
 import android.provider.Settings;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,10 +48,21 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_CODE = 230;
 
+    Button more;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        more = findViewById(R.id.more_options);
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openMainMenu();
+            }
+        });
+
         if (checkPermission() != true) {
             new MaterialAlertDialogBuilder(this, R.style.ThemeOverlay_App_MaterialAlertDialog)
                     .setTitle(R.string.permission_dialog_title)
@@ -71,6 +86,11 @@ public class MainActivity extends AppCompatActivity {
             getData();
         }
 
+    }
+
+    public void showLayout() {
+        CoordinatorLayout main_layout = findViewById(R.id.main_layout);
+        main_layout.animate().alpha(1).setDuration(250);
     }
 
     public void getData() {
@@ -111,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //CardView cv = new CardView(this);
+
+        showLayout();
     }
 
     private boolean checkPermission() {
@@ -147,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 2296) {
             if (SDK_INT >= Build.VERSION_CODES.R) {
                 if (Environment.isExternalStorageManager()) {
-                    // perform action when allow permission success
+                    getData();
                 } else {
                     show_permission_error();
                 }
@@ -170,6 +192,22 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
+    public void openMainMenu() {
+        PopupMenu pop = new PopupMenu(this, more);
+        pop.getMenuInflater().inflate(R.menu.main_menu, pop.getMenu());
 
+        pop.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if (menuItem.getItemId() == R.id.go_settings) {
+                    Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+                    startActivity(i);
+                }
+                return false;
+            }
+        });
+
+        pop.show();
+    }
 
 }

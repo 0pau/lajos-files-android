@@ -20,6 +20,5 @@
     <style name="Theme.FileBrowser" parent="Theme.Material3.DayNight">
         <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:fitsSystemWindows">true</item>
     </style>
 </resources>

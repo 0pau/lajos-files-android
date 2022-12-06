@@ -1,7 +1,14 @@
 package com.lajos.files;
 
+import android.content.Context;
+import android.os.storage.StorageManager;
+import android.os.storage.StorageVolume;
+import android.util.Log;
+
+import java.io.File;
 import java.text.DecimalFormat;
 import java.util.Comparator;
+import java.util.List;
 
 public class Tools {
 
@@ -35,6 +42,36 @@ public class Tools {
 
         return df.format(result) + unit;
 
+    }
+
+    public static String getVolumeNameForPath(Context c, String path) {
+        StorageManager sm = (StorageManager) c.getSystemService(c.STORAGE_SERVICE);
+        List<StorageVolume> devices = sm.getStorageVolumes();
+
+        for (int i = 0; i < devices.size(); i++) {
+            StorageVolume sv = devices.get(i);
+            if (sv.getDirectory().getPath().compareTo(path) == 0) {
+                return sv.getDescription(c);
+            }
+        }
+
+        File f = new File(path);
+        return f.getName();
+
+    }
+
+    public static boolean isPathRootOfVolume(Context c, String path) {
+        StorageManager sm = (StorageManager) c.getSystemService(c.STORAGE_SERVICE);
+        List<StorageVolume> devices = sm.getStorageVolumes();
+
+        for (int i = 0; i < devices.size(); i++) {
+            StorageVolume sv = devices.get(i);
+            if (sv.getDirectory().getPath().compareTo(path) == 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static DecimalFormat df = new DecimalFormat("0.0");
