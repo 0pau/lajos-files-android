@@ -22,8 +22,12 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -49,15 +53,34 @@ public class FileBrowserActivity extends AppCompatActivity {
         File[] entries = f.listFiles();
 
         ArrayList<FileEntry> fel = new ArrayList<FileEntry>();
+        ArrayList<FileEntry> dirs = new ArrayList<FileEntry>();
+        ArrayList<FileEntry> files = new ArrayList<FileEntry>();
 
+        //directories first
         for (int i = 0; i < entries.length; i++) {
             try {
-                fel.add(new FileEntry(entries[i]));
-                Log.i("FILE", entries[i].getName());
+                if (entries[i].isDirectory()) {
+                    dirs.add(new FileEntry(entries[i]));
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        dirs.sort(Tools.Comparators.alphabetical_order);
+
+        for (int i = 0; i < entries.length; i++) {
+            try {
+                if (!entries[i].isDirectory()) {
+                    files.add(new FileEntry(entries[i]));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        files.sort(Tools.Comparators.alphabetical_order);
+
+        fel.addAll(dirs);
+        fel.addAll(files);
 
         itemcount.setText(getString(R.string.item_count, entries.length));
 
@@ -81,14 +104,25 @@ public class FileBrowserActivity extends AppCompatActivity {
         @Override
         public View getView(final int position, View view, ViewGroup parent) {
 
+            FileEntry current = getItem(position);
+
             LayoutInflater inflater = context.getLayoutInflater();
             View rowView = inflater.inflate(R.layout.file_entry, null, true);
 
             TextView fileName = (TextView) rowView.findViewById(R.id.file_title);
             TextView description = (TextView) rowView.findViewById(R.id.file_desc);
 
-            fileName.setText(getItem(position).displayName);
-            description.setText(Tools.df.format(getItem(position).size) + " B");
+            fileName.setText(current.displayName);
+
+            String d;
+
+            if (current.type == FileType.DIRECTORY) {
+                d = current.formatDate();
+            } else {
+                d = getString(R.string.file_desc_string, Tools.convertWithUnit(current.size), current.formatDate());
+            }
+
+            description.setText(d);
 
             return rowView;
         }
@@ -98,13 +132,13 @@ public class FileBrowserActivity extends AppCompatActivity {
         public FileType type;
         public String displayName;
         public String path;
-        public long modified;
+        public Date modified;
         public long size; //if file
 
         public FileEntry(File f) throws IOException {
             displayName = f.getName();
             path = f.getPath();
-            modified = f.lastModified();
+            modified = new Date(f.lastModified());
 
             if (f.isFile()) {
                 size = Files.size(Paths.get(path));
@@ -118,6 +152,15 @@ public class FileBrowserActivity extends AppCompatActivity {
                 type = FileType.MISC;
             }
 
+        }
+
+        public String toString() {
+            return displayName;
+        }
+
+        public String formatDate() {
+            DateFormat dateFormat = android.text.format.DateFormat.getMediumDateFormat(getApplicationContext());
+            return dateFormat.format(modified);
         }
     }
 
@@ -134,4 +177,6 @@ public class FileBrowserActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

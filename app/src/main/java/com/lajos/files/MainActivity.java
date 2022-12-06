@@ -88,8 +88,7 @@ public class MainActivity extends AppCompatActivity {
             tv.setText(devices.get(i).getDescription(this));
 
             TextView tv2 = (TextView) cv.findViewById(R.id.free_space);
-            double free = Tools.convertToGiB(devices.get(i).getDirectory().getFreeSpace());
-            tv2.setText(getString(R.string.free_space, Tools.df.format(free)));
+            tv2.setText(getString(R.string.free_space, Tools.convertWithUnit(devices.get(i).getDirectory().getFreeSpace())));
 
             ImageView iv = (ImageView) cv.findViewById(R.id.device_icon);
 

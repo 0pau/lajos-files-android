@@ -14,8 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:background="@drawable/file_entry_bg"
-        android:padding="15dp"
-        android:tint="?attr/colorOnPrimary"
+        android:padding="12dp"
+        android:tint="?attr/colorOnSecondaryContainer"
         app:srcCompat="@drawable/ic_round_folder_24" />
 
     <LinearLayout
@@ -30,7 +30,8 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="15sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/file_desc"

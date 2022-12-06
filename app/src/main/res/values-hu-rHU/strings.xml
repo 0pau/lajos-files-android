@@ -10,8 +10,9 @@
     <string name="permission_error_title">Az engedélykérés el lett utasítva</string>
     <string name="permission_error_text">Az alkalmazás használhatatlan eme engedély hiányában. Koppintson a gombra a bezáráshoz.</string>
     <string name="close_app">Kilépés</string>
-    <string name="free_space">%1$s GB szabad</string>
+    <string name="free_space">%1$s szabad</string>
     <string name="recent">Legutóbbi fájlok</string>
     <string name="favorites">Kedvencek</string>
     <string name="item_count">%1$d elem</string>
+    <string name="file_desc_string">%1$s • %2$s</string>
 </resources>

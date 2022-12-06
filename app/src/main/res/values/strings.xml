@@ -9,8 +9,9 @@
     <string name="permission_error_title">Permissions not granted</string>
     <string name="permission_error_text">The application is unusable without this permission. Click the button to quit.</string>
     <string name="close_app">Close app</string>
-    <string name="free_space">%1$s GB free</string>
+    <string name="free_space">%1$s free</string>
     <string name="recent">Recent files</string>
     <string name="favorites">Favorites</string>
     <string name="item_count">%1$d items</string>
+    <string name="file_desc_string">%1$s • %2$s</string>
 </resources>
