@@ -25,4 +25,7 @@
     <string name="show_hidden_description">Azon fájlok mutatása, melyek neve ponttal (.) kezdődik</string>
     <string name="folders_before_files">Mappák rendezése a fájlok előtt</string>
     <string name="folders_before_files_desc">A listában a mappák a fájlok előtt jelennek meg</string>
+    <string name="directory_read_error">Könyvtárolvasási hiba</string>
+    <string name="directory_read_error_description">A könyvtár olvashatatlan, vagy nincs elég engedélye az olvasáshoz.</string>
+    <string name="default_sort_order">Alapértelmezett rendezésmód</string>
 </resources>

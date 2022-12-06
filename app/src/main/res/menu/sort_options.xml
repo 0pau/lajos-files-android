@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="By name" />
-    <item android:title="By size" />
-    <item android:title="By date" />
+    <item
+        android:id="@+id/sort_by_name"
+        android:title="By name" />
+    <item
+        android:id="@+id/sort_by_size"
+        android:title="By size" />
+    <item
+        android:id="@+id/sort_by_date"
+        android:title="By date" />
 </menu>

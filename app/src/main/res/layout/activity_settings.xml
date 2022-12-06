@@ -28,6 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:title="@string/settings"></androidx.appcompat.widget.Toolbar>
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -44,6 +45,30 @@
             android:divider="?attr/dividerHorizontal"
             android:orientation="vertical"
             android:showDividers="middle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/default_sort_order"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/settings_def_sort_button"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sort_by_name" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,7 +101,7 @@
                 </LinearLayout>
 
                 <CheckBox
-                    android:id="@+id/checkBox"
+                    android:id="@+id/hidden_files_checkbox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0" />
@@ -113,7 +138,7 @@
                 </LinearLayout>
 
                 <CheckBox
-                    android:id="@+id/checkBox"
+                    android:id="@+id/folders_before_files_checkbox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"

@@ -1,14 +1,18 @@
 package com.lajos.files;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.net.Uri;
 import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
 import android.util.Log;
+import android.webkit.MimeTypeMap;
 
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.Comparator;
 import java.util.List;
+import java.lang.Math;
 
 public class Tools {
 
@@ -83,19 +87,53 @@ public class Tools {
                 return f1.toString().compareTo(f2.toString());
             }
         };
-        public static Comparator folders_before_files = new Comparator<FileBrowserActivity.FileEntry>() {
+        public static Comparator date_order = new Comparator<FileBrowserActivity.FileEntry>() {
             @Override
             public int compare(FileBrowserActivity.FileEntry f1, FileBrowserActivity.FileEntry f2) {
-
-                if (f1.type == FileBrowserActivity.FileType.DIRECTORY && f2.type != FileBrowserActivity.FileType.DIRECTORY) {
-                    return 0;
-                } else if (f1.type != FileBrowserActivity.FileType.DIRECTORY && f2.type == FileBrowserActivity.FileType.DIRECTORY) {
-                    return 1;
-                }
-
-                return 1;
+                return f1.modified.compareTo(f2.modified);
+            }
+        };
+        public static Comparator size_order = new Comparator<FileBrowserActivity.FileEntry>() {
+            @Override
+            public int compare(FileBrowserActivity.FileEntry f1, FileBrowserActivity.FileEntry f2) {
+                Long s1 = f1.size;
+                Long s2 = f2.size;
+                return s1.compareTo(s2);
             }
         };
     }
+
+    public static FileBrowserActivity.FileType getFileType(Context c, File file) {
+
+        String type = null;
+        final String url = file.toString();
+        final String ext = MimeTypeMap.getFileExtensionFromUrl(url);
+
+        if (ext != null) {
+            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext.toLowerCase());
+        }
+        if (type == null) {
+            type = "?";
+        }
+
+        if (type.contains("image")) {
+            return FileBrowserActivity.FileType.IMAGE;
+        } else if (type.contains("audio")) {
+            return FileBrowserActivity.FileType.AUDIO;
+        } else if (type.contains("text")) {
+            return FileBrowserActivity.FileType.TEXT;
+        } else if (type.contains("android.package-archive") || url.endsWith(".apk")) {
+            return FileBrowserActivity.FileType.APK;
+        } else if (type.contains("zip") || url.endsWith(".zip") || url.endsWith(".7z")) {
+            return FileBrowserActivity.FileType.ARCHIVE;
+        } else if (type.contains("video") || url.endsWith(".mp4") || url.endsWith(".mkv") || url.endsWith(".3gp") || url.endsWith(".avi") || url.endsWith(".wmv") || url.endsWith(".mov")) {
+            return FileBrowserActivity.FileType.VIDEO;
+        } else if (url.endsWith("torrent")) {
+            return FileBrowserActivity.FileType.TORRENT;
+        }
+
+        return FileBrowserActivity.FileType.MISC;
+
+    };
 
 }

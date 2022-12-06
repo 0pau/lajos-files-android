@@ -106,6 +106,7 @@
         android:clickable="true"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        app:menu="@menu/only_search"
         app:navigationIcon="@drawable/ic_round_arrow_back_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

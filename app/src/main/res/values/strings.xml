@@ -24,4 +24,7 @@
     <string name="show_hidden_description">Show files whose names start with a period (.)</string>
     <string name="folders_before_files">Sort folders before files</string>
     <string name="folders_before_files_desc">The folders will be displayed before files in the list</string>
+    <string name="directory_read_error">Directory read error</string>
+    <string name="directory_read_error_description">The directory is unreadable or you don\'t have enough permissions to read it.</string>
+    <string name="default_sort_order">Default sort order</string>
 </resources>
